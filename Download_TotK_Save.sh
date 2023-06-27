@@ -90,7 +90,7 @@ convertSecs() {
  printf "%02d:%02d:%02d\n" $h $m $s
 }
 
-copyFiles() {
+function copyFiles {
 clear
 #Create backup folders if the are not present
 if [ ! -d ~/"$backupPath"/savebkp1 ]; then mkdir ~/"$backupPath"/savebkp1; fi
