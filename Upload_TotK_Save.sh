@@ -17,7 +17,7 @@ quitMsg="File Copy Aborted"
 #cd ~/.local/share/yuzu/nand/user/save/0000000000000000/$yuzuInst/0100F2C0115B6000/
 
 #location this script file will be stored and run from
-scriptDir="Documents/Scripts"
+scriptDir="Documents/Scripts/TotK Save Scripts"
 
 #SMB share and path to where save and cache files are stored
 smbShare="//10.0.1.243/Software/"
@@ -31,8 +31,8 @@ Green=$'\e[1;32m'
 Blue=$'\e[1;34m'
 Endcolor=$'\e[0m'
 
-cd ~/$scriptDir
-smbclient $smbShare -A ~/$scriptDir/.smbauth.txt -c 'prompt OFF; recurse ON; cd '$smbSavePath'\save\slot_02\; get progress.sav'
+cd ~/"$scriptDir"
+smbclient $smbShare -A ~/"$scriptDir"/.smbauth.txt -c 'prompt OFF; recurse ON; cd '$smbSavePath'\save\slot_02\; get progress.sav'
 oldPlayTimeTotal=$(od progress.sav -N 4 -t u8 -A n -j 0x0003b8ec | tr -d ' ')
 rm progress.sav
 
@@ -50,9 +50,13 @@ copyFiles() {
 clear
 
 cd ~/$yuzuSaveDir
-smbclient $smbShare -A ~/$scriptDir/.smbauth.txt -c 'prompt OFF; recurse ON; cd '$smbSavePath'; deltree savebkp5; rename savebkp4 savebkp5; rename savebkp3 savebkp4; rename savebkp2 savebkp3; rename savebkp1 savebkp2; rename save savebkp1; mkdir save; cd save; mput *'
+smbclient $smbShare -A ~/"$scriptDir"/.smbauth.txt -c 'prompt OFF;recurse ON; cd '$smbSavePath'; deltree savebkp5;
+rename savebkp4 savebkp5; rename savebkp3 savebkp4; rename savebkp2 savebkp3; rename savebkp1 savebkp2; rename save savebkp1;
+mkdir save; cd save; mput *'
 cd ~/$yuzuCacheDir
-smbclient $smbShare -A ~/$scriptDir/.smbauth.txt -c 'prompt OFF; recurse ON; cd '$smbSavePath'; deltree cachebkp5; rename cachebkp4 cachebkp5; rename cachebkp3 cachebkp4; rename cachebkp2 cachebkp3; rename cachebkp1 cachebkp2; rename cache cachebkp1; mkdir cache; cd cache; mput *'
+smbclient $smbShare -A ~/"$scriptDir"/.smbauth.txt -c 'prompt OFF; recurse ON; cd '$smbSavePath'; deltree cachebkp5;
+rename cachebkp4 cachebkp5; rename cachebkp3 cachebkp4; rename cachebkp2 cachebkp3; rename cachebkp1 cachebkp2; rename cache cachebkp1;
+mkdir cache; cd cache; mput *'
 
 }
 
@@ -72,8 +76,10 @@ then
     then
         echo $Blue""
         copyFiles
+        echo ""$Endcolor
     else
         echo $quitMsg
+        echo ""$Endcolor
         exit
     fi
 elif  [[ $oldPlayTimeTotal -gt $newPlayTimeTotal ]]
@@ -85,8 +91,10 @@ then
     then
         echo $Blue""
         copyFiles
+        echo ""$Endcolor
     else
         echo $quitMsg
+        echo ""$Endcolor
         exit
     fi
 elif   [[ $oldPlayTimeTotal -eq $newPlayTimeTotal ]]
@@ -98,8 +106,10 @@ then
     then
         echo $Blue""
         copyFiles
+        echo ""$Endcolor
     else
         echo $Red$quitMsg
+        echo ""$Endcolor
         exit
     fi
 fi
