@@ -6,9 +6,52 @@
 #domain = <value>
 
 # To find the Yuzu instance ID right click the game in Yuzu and 'Open Save Data Location', and the insance ID will be up one directory
-# Fedora-PC Yuzu Insance D452A88EF188623E13860EABEC653E27
-# Steam Deck Yuzu Instance BC5EDEC815A19E408C512754198A480F
-yuzuInst=D452A88EF188623E13860EABEC653E27
+totkLookup=( $(find ~/.local/share/yuzu/nand/user/save -name "0100F2C0115B6000") )
+
+function displaySingle {
+    yuzuInst=$(basename $(dirname $totkLookup))
+    echo $yuzuInst
+}
+
+function displayMultiple {
+    itemNum=0
+    for i in ${totkLookup[@]}
+    do
+    yuzuInst=$(basename $(dirname $i))
+    echo $yuzuInst \[$itemNum\]
+    ((itemNum=$itemNum+1))
+    done
+    ((itemNum=$itemNum-1))
+}
+
+function selectSaveInst {
+    echo "Choose the save file folder you would like to copy"
+    echo "Valid choices are 0-$itemNum"
+    read saveInstNum
+    #echo $saveInstNum
+
+    if [ ! -z ${totkLookup[$saveInstNum]} ] && [[ $saveInstNum =~ ^[0-9]+$ ]]
+    then
+        yuzuInst=$(basename $(dirname ${totkLookup[$saveInstNum]}))
+        echo $yuzuInst
+    else
+        echo "That selection is invalid, please choose 0-$itemNum"
+        displayMultiple
+        selectSaveInst
+    fi
+}
+
+
+if [ -z ${totkLookup[1]} ]
+then
+    echo "Only one Save Folder instance found"
+    displaySingle
+else
+    echo "Multiple Save Folder instances found"
+    displayMultiple
+    selectSaveInst
+fi
+
 yuzuSaveDir=".local/share/yuzu/nand/user/save/0000000000000000/$yuzuInst/0100F2C0115B6000"
 yuzuCacheDir=".local/share/yuzu/nand/user/save/cache/0000000000000000/"
 backupPath="Documents/Gaming/TotK Saves"
