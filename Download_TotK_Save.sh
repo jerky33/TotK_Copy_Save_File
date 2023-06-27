@@ -83,7 +83,7 @@ rm progress.sav
 cd ~/$yuzuSaveDir/slot_02
 oldPlayTimeTotal=$(od progress.sav -N 4 -t u8 -A n -j 0x0003b8ec | tr -d ' ')
 
-convertSecs() {
+function convertSecs {
  ((h=${1}/3600))
  ((m=(${1}%3600)/60))
  ((s=${1}%60))
