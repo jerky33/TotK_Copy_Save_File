@@ -1,2 +1,2 @@
-username = mike
-password = yambag
+username = <value>
+password = <value>
