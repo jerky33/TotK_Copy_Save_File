@@ -76,6 +76,7 @@ Blue=$'\e[1;34m'
 Endcolor=$'\e[0m'
 
 cd ~/"$scriptDir"
+ls -a
 smbclient $smbShare -A ~/"$scriptDir"/.smbauth.txt -c 'prompt OFF; recurse ON; cd '$smbSavePath'\save\slot_02\; get progress.sav'
 oldPlayTimeTotal=$(od progress.sav -N 4 -t u8 -A n -j 0x0003b8ec | tr -d ' ')
 #rm progress.sav
@@ -107,7 +108,7 @@ newPlayTimeHMS=$(convertSecs $newPlayTimeTotal)
 
 shopt -s nocasematch
 
-clear
+#clear
 
 if [[ $newPlayTimeTotal -gt $oldPlayTimeTotal ]]
 then
