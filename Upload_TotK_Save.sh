@@ -25,6 +25,7 @@ smbSavePath="Gaming\Switch\Saves\TotK"
 
 
 #color
+
 Red=$'\e[1;31m'
 Yellow=$'\e[1;33m'
 Green=$'\e[1;32m'
