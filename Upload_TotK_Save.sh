@@ -66,8 +66,6 @@ scriptDir="Documents/Scripts/TotK Save Scripts"
 smbShare="//10.0.1.243/Software/"
 smbSavePath="Gaming\Switch\Saves\TotK"
 
-
-
 #color
 Red=$'\e[1;31m'
 Yellow=$'\e[1;33m'
