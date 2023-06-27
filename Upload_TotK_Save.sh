@@ -24,6 +24,7 @@ smbShare="//10.0.1.243/Software/"
 smbSavePath="Gaming\Switch\Saves\TotK"
 
 
+
 #color
 
 Red=$'\e[1;31m'
