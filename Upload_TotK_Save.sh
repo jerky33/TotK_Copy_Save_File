@@ -39,16 +39,15 @@ rm progress.sav
 cd ~/$yuzuSaveDir/slot_02
 newPlayTimeTotal=$(od progress.sav -N 4 -t u8 -A n -j 0x0003b8ec | tr -d ' ')
 
-convertSecs() {
+function convertSecs {
  ((h=${1}/3600))
  ((m=(${1}%3600)/60))
  ((s=${1}%60))
  printf "%02d:%02d:%02d\n" $h $m $s
 }
 
-copyFiles() {
+function copyFiles {
 clear
-
 cd ~/$yuzuSaveDir
 smbclient $smbShare -A ~/"$scriptDir"/.smbauth.txt -c 'prompt OFF;recurse ON; cd '$smbSavePath'; deltree savebkp5;
 rename savebkp4 savebkp5; rename savebkp3 savebkp4; rename savebkp2 savebkp3; rename savebkp1 savebkp2; rename save savebkp1;
@@ -57,7 +56,6 @@ cd ~/$yuzuCacheDir
 smbclient $smbShare -A ~/"$scriptDir"/.smbauth.txt -c 'prompt OFF; recurse ON; cd '$smbSavePath'; deltree cachebkp5;
 rename cachebkp4 cachebkp5; rename cachebkp3 cachebkp4; rename cachebkp2 cachebkp3; rename cachebkp1 cachebkp2; rename cache cachebkp1;
 mkdir cache; cd cache; mput *'
-
 }
 
 oldPlayTimeHMS=$(convertSecs $oldPlayTimeTotal)
