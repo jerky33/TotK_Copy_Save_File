@@ -6,6 +6,7 @@
 #domain = <value>
 
 # To find the Yuzu instance ID right click the game in Yuzu and 'Open Save Data Location', and the insance ID will be up one directory
+# This first section looks for a TotK Save folder and if multiple are found it will offer an option to pich which instance to update.
 totkLookup=( $(find ~/.local/share/yuzu/nand/user/save -name "0100F2C0115B6000") )
 
 function displaySingle {
