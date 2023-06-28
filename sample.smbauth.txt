@@ -1,3 +1,0 @@
-username = <value>
-password = <value>
-domain = <value>
