@@ -1,0 +1,9 @@
+#location this script file will be stored and run from
+scriptDir="Documents/Scripts/TotK Save Scripts"
+
+#location that save file backups will be kept, these are used in the event that an unwanted save file overwrites the active files
+backupPath="Documents/Gaming/TotK Saves"
+
+#SMB share and path to where save and cache files are stored
+smbShare="//10.1.1.100/Share/"
+smbSavePath="Gaming\Switch\Saves\TotK"
