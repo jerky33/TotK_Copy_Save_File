@@ -7,4 +7,22 @@ Both scripts make a set of backup folders of the latest five save transfers (loc
 
 Note: With regards to the sample.smbauth.txt, the user will need to rename the file '.smbauth.txt' or update the scripts to use a different file name if desired. Per the smbclient manual the line containg 'domain' is optional and can be removed if not needed.
 
+You should only need to update the variables in the config file
+
+The following lined contain the contents of the sample config file
+
+\#location this script file will be stored and run from
+
+scriptDir="Documents/Scripts/TotK Save Scripts"
+
+\#location that save file backups will be kept, these are used in the event that an unwanted save file overwrites the active files
+
+backupPath="Documents/Gaming/TotK Saves"
+
+\#SMB share and path to where save and cache files are stored
+
+smbShare="//10.1.1.100/Share/"
+
+smbSavePath="Gaming\Switch\Saves\TotK"
+
 
