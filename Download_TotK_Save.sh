@@ -57,8 +57,6 @@ yuzuCacheDir=".local/share/yuzu/nand/user/save/cache/0000000000000000/"
 backupPath="Documents/Gaming/TotK Saves"
 quitMsg="File Copy Aborted"
 
-#cd ~/.local/share/yuzu/nand/user/save/0000000000000000/$yuzuInst/0100F2C0115B6000/
-
 #location this script file will be stored and run from
 scriptDir="Documents/Scripts"
 
