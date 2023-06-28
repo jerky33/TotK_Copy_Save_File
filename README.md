@@ -6,3 +6,5 @@ The Upload script looks for a TotK save folder, if there are multiple it will gi
 Both scripts make a set of backup folders of the latest five save transfers (locally for the Download script and on the SMB server for the Upload script) allowing the user to recover from an instance where they overwrite a game save inadvertantly.
 
 Note: With regards to the sample.smbauth.txt, the user will need to rename the file '.smbauth.txt' or update the scripts to use a different file name if desired. Per the smbclient manual the line containg 'domain' is optional and can be removed if not needed.
+
+
