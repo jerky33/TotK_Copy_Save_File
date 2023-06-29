@@ -157,8 +157,10 @@ then
     then
         echo $Blue""
         copyFiles
+        echo ""$Endcolor
     else
         echo $quitMsg
+        echo ""$Endcolor
         exit
     fi
 elif  [[ $oldPlayTimeTotal -gt $newPlayTimeTotal ]]
@@ -170,8 +172,10 @@ then
     then
         echo $Blue""
         copyFiles
+        echo ""$Endcolor
     else
         echo $quitMsg
+        echo ""$Endcolor
         exit
     fi
 elif   [[ $newPlayTimeTotal -eq $oldPlayTimeTotal ]]
@@ -183,8 +187,10 @@ then
     then
         echo $Blue""
         copyFiles
+        echo ""$Endcolor
     else
         echo $Red$quitMsg
+        echo ""$Endcolor
         exit
     fi
 fi
