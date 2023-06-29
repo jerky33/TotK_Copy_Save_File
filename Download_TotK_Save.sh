@@ -57,7 +57,6 @@ yuzuSaveDir=".local/share/yuzu/nand/user/save/0000000000000000/$yuzuInst/0100F2C
 yuzuCacheDir=".local/share/yuzu/nand/user/save/cache/0000000000000000/"
 quitMsg="File Copy Aborted"
 
-<<<<<<< HEAD
 #location this script file will be stored and run from
 scriptDir="Documents/Scripts"
 =======
