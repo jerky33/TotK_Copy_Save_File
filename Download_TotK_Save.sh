@@ -58,7 +58,7 @@ yuzuCacheDir=".local/share/yuzu/nand/user/save/cache/0000000000000000/"
 quitMsg="File Copy Aborted"
 
 #location this script file will be stored and run from
-scriptDir="Documents/Scripts"
+#scriptDir="Documents/Scripts"
 
 ##location this script file will be stored and run from
 #scriptDir="Documents/Scripts"
@@ -81,8 +81,9 @@ Green=$'\e[1;32m'
 Blue=$'\e[1;34m'
 Endcolor=$'\e[0m'
 
-cd ~/$scriptDir
-smbclient $smbShare -A ~/$scriptDir/.smbauth.txt -c 'prompt OFF; recurse ON; cd '$smbSavePath'\slot_02\; get progress.sav'
+cd ~/"$scriptDir"
+echo $smbShare
+smbclient $smbShare -A ~/"$scriptDir"/.smbauth.txt -c 'prompt OFF; recurse ON; cd '$smbSavePath'\save\slot_02\; get progress.sav'
 newPlayTimeTotal=$(od progress.sav -N 4 -t u8 -A n -j 0x0003b8ec | tr -d ' ')
 rm progress.sav
 
@@ -134,9 +135,9 @@ cp -r * ~/"$backupPath"/cache/
 rm -r *
 
 cd ~/$yuzuSaveDir
-smbclient $smbShare -A ~/$scriptDir/.smbauth.txt -c 'prompt OFF; recurse ON; cd '$smbSavePath'; mget *'
+smbclient $smbShare -A ~/"$scriptDir"/.smbauth.txt -c 'prompt OFF; recurse ON; cd '$smbSavePath'\save\; mget *'
 cd ~/$yuzuCacheDir
-smbclient $smbShare -A ~/$scriptDir/.smbauth.txt -c 'prompt OFF; recurse ON; cd '$smbCachePath'; mget *'
+smbclient $smbShare -A ~/"$scriptDir"/.smbauth.txt -c 'prompt OFF; recurse ON; cd '$smbSavePath'\cache\; mget *'
 
 }
 
@@ -145,7 +146,7 @@ oldPlayTimeHMS=$(convertSecs $oldPlayTimeTotal)
 
 shopt -s nocasematch
 
-clear
+#clear
 
 if [[ $newPlayTimeTotal -gt $oldPlayTimeTotal ]]
 then
