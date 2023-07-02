@@ -108,7 +108,7 @@ newPlayTimeHMS=$(convertSecs $newPlayTimeTotal)
 
 shopt -s nocasematch
 
-#clear
+clear
 
 if [[ $newPlayTimeTotal -gt $oldPlayTimeTotal ]]
 then
