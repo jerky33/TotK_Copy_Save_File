@@ -42,7 +42,6 @@ function selectSaveInst {
     fi
 }
 
-
 if [ -z ${totkLookup[1]} ]
 then
     echo "Only one Save Folder instance found"
@@ -66,7 +65,9 @@ quitMsg="File Copy Aborted"
 #smbSavePath="Gaming\Switch\Saves\TotK"
 
 #the following line loads variables from the config file
-. ./TotKScripts.config
+. ~/Documents/Scripts/TotK\ Save\ Scripts/TotKScripts.config
+
+
 
 #color
 Red=$'\e[1;31m'
@@ -78,8 +79,8 @@ Endcolor=$'\e[0m'
 cd ~/"$scriptDir"
 ls -a
 smbclient $smbShare -A ~/"$scriptDir"/.smbauth.txt -c 'prompt OFF; recurse ON; cd '$smbSavePath'\save\slot_02\; get progress.sav'
-oldPlayTimeTotal=$(od progress.sav -N 4 -t u8 -A n -j 0x0003b8ec | tr -d ' ')
-rm progress.sav
+oldPlayTimeTotal=$(od ~/"$scriptDir"/progress.sav -N 4 -t u8 -A n -j 0x0003b8ec | tr -d ' ')
+#rm progress.sav
 
 cd ~/$yuzuSaveDir/slot_02
 newPlayTimeTotal=$(od progress.sav -N 4 -t u8 -A n -j 0x0003b8ec | tr -d ' ')
