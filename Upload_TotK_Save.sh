@@ -56,18 +56,8 @@ yuzuSaveDir=".local/share/yuzu/nand/user/save/0000000000000000/$yuzuInst/0100F2C
 yuzuCacheDir=".local/share/yuzu/nand/user/save/cache/0000000000000000/"
 quitMsg="File Copy Aborted"
 
-##location this script file will be stored and run from
-#floowing line is a sample
-#scriptDir="Documents/Scripts/TotK Save Scripts"
-
-##SMB share and path to where save and cache files are stored
-#smbShare="//10.1.1.100/Software/"
-#smbSavePath="Gaming\Switch\Saves\TotK"
-
 #the following line loads variables from the config file
 . ~/Documents/Scripts/TotK\ Save\ Scripts/TotKScripts.config
-
-
 
 #color
 Red=$'\e[1;31m'
@@ -80,7 +70,7 @@ cd ~/"$scriptDir"
 ls -a
 smbclient $smbShare -A ~/"$scriptDir"/.smbauth.txt -c 'prompt OFF; recurse ON; cd '$smbSavePath'\save\slot_02\; get progress.sav'
 oldPlayTimeTotal=$(od ~/"$scriptDir"/progress.sav -N 4 -t u8 -A n -j 0x0003b8ec | tr -d ' ')
-#rm progress.sav
+rm progress.sav
 
 cd ~/$yuzuSaveDir/slot_02
 newPlayTimeTotal=$(od progress.sav -N 4 -t u8 -A n -j 0x0003b8ec | tr -d ' ')

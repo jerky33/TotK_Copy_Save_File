@@ -57,22 +57,8 @@ yuzuSaveDir=".local/share/yuzu/nand/user/save/0000000000000000/$yuzuInst/0100F2C
 yuzuCacheDir=".local/share/yuzu/nand/user/save/cache/0000000000000000/"
 quitMsg="File Copy Aborted"
 
-#location this script file will be stored and run from
-#scriptDir="Documents/Scripts"
-
-##location this script file will be stored and run from
-#scriptDir="Documents/Scripts"
-
-##location that save file backups will be kept, these are used in the event that an unwanted save file overwrites the active files
-#backupPath="Documents/Gaming/TotK Saves"
-
-##SMB share and path to where save and cache files are stored
-#smbShare="//10.0.1.243/Software/"
-#smbSavePath="Gaming\Switch\Saves\TotK\save"
-#smbCachePath="Gaming\Switch\Saves\TotK\cache"
-
 #the following line loads variables from the config file
-. ./TotKScripts.config
+. ~/Documents/Scripts/TotK\ Save\ Scripts/TotKScripts.config
 
 #color
 Red=$'\e[1;31m'
