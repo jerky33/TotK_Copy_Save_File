@@ -31,7 +31,7 @@ function selectSaveInst {
     read saveInstNum
     #echo $saveInstNum
 
-    if [ ! -z ${totkLookup[$saveInstNum]} ] && [[ $saveInstNum =~ ^[0-9]+$ ]]
+    if [[ ! -z ${totkLookup[$saveInstNum]} ]] && [[ $saveInstNum =~ ^[0-9]+$ ]]
     then
         yuzuInst=$(basename $(dirname ${totkLookup[$saveInstNum]}))
         echo $yuzuInst
@@ -42,7 +42,7 @@ function selectSaveInst {
     fi
 }
 
-if [ -z ${totkLookup[1]} ]
+if [[ -z ${totkLookup[1]} ]]
 then
     echo "Only one Save Folder instance found"
     displaySingle
@@ -55,6 +55,10 @@ fi
 yuzuSaveDir=".local/share/yuzu/nand/user/save/0000000000000000/$yuzuInst/0100F2C0115B6000"
 yuzuCacheDir=".local/share/yuzu/nand/user/save/cache/0000000000000000/"
 quitMsg="File Copy Aborted"
+trasferOption=""
+inputCnt=0
+#transOptMatch='(?i)[duq]'
+transOptMatch=[dDuUqQ]
 
 #the following line loads variables from the config file
 . ~/Documents/Scripts/TotK\ Save\ Scripts/TotKScripts.config
@@ -97,18 +101,18 @@ mkdir cache; cd cache; mput *'
 function downloadFiles {
 clear
 #Create backup folders if the are not present
-if [ ! -d ~/"$backupPath"/savebkp1 ]; then mkdir ~/"$backupPath"/savebkp1; fi
-if [ ! -d ~/"$backupPath"/savebkp2 ]; then mkdir ~/"$backupPath"/savebkp2; fi
-if [ ! -d ~/"$backupPath"/savebkp3 ]; then mkdir ~/"$backupPath"/savebkp3; fi
-if [ ! -d ~/"$backupPath"/savebkp4 ]; then mkdir ~/"$backupPath"/savebkp4; fi
-if [ ! -d ~/"$backupPath"/savebkp5 ]; then mkdir ~/"$backupPath"/savebkp5; fi
-if [ ! -d ~/"$backupPath"/save ]; then mkdir ~/"$backupPath"/save; fi
-if [ ! -d ~/"$backupPath"/cachebkp1 ]; then mkdir ~/"$backupPath"/cachebkp1; fi
-if [ ! -d ~/"$backupPath"/cachebkp2 ]; then mkdir ~/"$backupPath"/cachebkp2; fi
-if [ ! -d ~/"$backupPath"/cachebkp3 ]; then mkdir ~/"$backupPath"/cachebkp3; fi
-if [ ! -d ~/"$backupPath"/cachebkp4 ]; then mkdir ~/"$backupPath"/cachebkp4; fi
-if [ ! -d ~/"$backupPath"/cachebkp5 ]; then mkdir ~/"$backupPath"/cachebkp5; fi
-if [ ! -d ~/"$backupPath"/cache ]; then mkdir ~/"$backupPath"/cache; fi
+if [[ ! -d ~/"$backupPath"/savebkp1 ]]; then mkdir ~/"$backupPath"/savebkp1; fi
+if [[ ! -d ~/"$backupPath"/savebkp2 ]]; then mkdir ~/"$backupPath"/savebkp2; fi
+if [[ ! -d ~/"$backupPath"/savebkp3 ]]; then mkdir ~/"$backupPath"/savebkp3; fi
+if [[ ! -d ~/"$backupPath"/savebkp4 ]]; then mkdir ~/"$backupPath"/savebkp4; fi
+if [[ ! -d ~/"$backupPath"/savebkp5 ]]; then mkdir ~/"$backupPath"/savebkp5; fi
+if [[ ! -d ~/"$backupPath"/save ]]; then mkdir ~/"$backupPath"/save; fi
+if [[ ! -d ~/"$backupPath"/cachebkp1 ]]; then mkdir ~/"$backupPath"/cachebkp1; fi
+if [[ ! -d ~/"$backupPath"/cachebkp2 ]]; then mkdir ~/"$backupPath"/cachebkp2; fi
+if [[ ! -d ~/"$backupPath"/cachebkp3 ]]; then mkdir ~/"$backupPath"/cachebkp3; fi
+if [[ ! -d ~/"$backupPath"/cachebkp4 ]]; then mkdir ~/"$backupPath"/cachebkp4; fi
+if [[ ! -d ~/"$backupPath"/cachebkp5 ]]; then mkdir ~/"$backupPath"/cachebkp5; fi
+if [[ ! -d ~/"$backupPath"/cache ]]; then mkdir ~/"$backupPath"/cache; fi
 
 cd ~/$yuzuSaveDir
 rm -rf ~/"$backupPath"/savebkp5/
@@ -160,7 +164,20 @@ clear
 echo "Play time of the local Save File is $fileState the Save File on the server -- Server:$Blue$serverPlayTimeHMS$Endcolor Local:$Blue$localPlayTimeHMS$Endcolor"
 
 echo "Would you like to Upload the local save file to the server or Download the server save file to this PC? (u/d)"
-read trasferOption
+echo "or press q to quit script"
+
+while [[ ! $trasferOption =~ $transOptMatch ]] && [[ $inputCnt -lt 3 ]]
+do
+    read trasferOption
+    inputCnt=$((inputCnt+1))
+    if [[ ! $trasferOption =~ $transOptMatch ]]
+    then
+        echo "You must select a valid option (u/d/q)"
+    fi
+done
+
+
+
 if [[ $trasferOption == 'U' ]] && [[ $localPlayTimeTotal -gt $serverPlayTimeTotal ]]
 then
     echo $Blue""; uploadFiles; echo ""$Endcolor
@@ -189,7 +206,7 @@ then
         echo $Red$quitMsg$Endcolor
         exit
     fi
-elif ([ $trasferOption == 'U' ] || [ $trasferOption == 'D' ]) && [[ $localPlayTimeTotal -eq $serverPlayTimeTotal ]]
+elif ([[ $trasferOption == 'U' ]] || [[ $trasferOption == 'D' ]]) && [[ $localPlayTimeTotal -eq $serverPlayTimeTotal ]]
 then
     echo "You are attempting to overwrite files with the same timestamp, are you sure you wish to continue? (y/N)"
     read confirmation
@@ -208,4 +225,5 @@ then
     fi
 fi
 
+echo "closing script"
 
