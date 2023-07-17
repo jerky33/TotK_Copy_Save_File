@@ -57,7 +57,6 @@ yuzuCacheDir=".local/share/yuzu/nand/user/save/cache/0000000000000000/"
 quitMsg="File Copy Aborted"
 trasferOption=""
 inputCnt=0
-#transOptMatch='(?i)[duq]'
 transOptMatch=[dDuUqQ]
 
 #the following line loads variables from the config file
@@ -145,7 +144,6 @@ smbclient $smbShare -A ~/"$scriptDir"/.smbauth.txt -c 'prompt OFF; recurse ON; c
 serverPlayTimeHMS=$(convertSecs $serverPlayTimeTotal)
 localPlayTimeHMS=$(convertSecs $localPlayTimeTotal)
 
-shopt -s nocasematch
 
 if [[ $localPlayTimeTotal -gt $serverPlayTimeTotal ]]
 then
@@ -176,7 +174,7 @@ do
     fi
 done
 
-
+shopt -s nocasematch
 
 if [[ $trasferOption == 'U' ]] && [[ $localPlayTimeTotal -gt $serverPlayTimeTotal ]]
 then
